@@ -1,0 +1,37 @@
+﻿@model string
+
+@{
+    ViewBag.Title = "Download file from url using WebClient";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">             
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="url" class="col-md-2">Url</label>
+                <div class="col-md-10">
+                    @Html.TextBox("url", null, new { @class = "form-control", placeholder = "Insert url http://..." })
+                    @Html.ValidationMessage("url", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+        }
+    </div>
+
+</div>
