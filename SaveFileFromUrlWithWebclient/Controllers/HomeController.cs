@@ -40,7 +40,8 @@ namespace SaveFileFromUrlWithWebclient.Controllers
                         {
                             string path = GetApp_DataPath();
                             string filename = GetFilename(url);
-                            webClient.DownloadFile(url, path + filename);
+                            string pathAndFilename = Path.Combine(path,filename);
+                            webClient.DownloadFile(url, pathAndFilename);
                             return RedirectToAction("Index", new {message= String.Format("The file \"{0}\" is uploaded to App_Data", filename) });
                         }
                         else {
@@ -84,7 +85,11 @@ namespace SaveFileFromUrlWithWebclient.Controllers
 
         private string GetApp_DataPath()
         {
-            return Server.MapPath("~/App_Data/");
+            string dirToSaveFiles = "~/App_Data";
+            if (!Directory.Exists(Server.MapPath(dirToSaveFiles))) { 
+                Directory.CreateDirectory(Server.MapPath(dirToSaveFiles));
+            };
+            return Server.MapPath(dirToSaveFiles);
         }
 
         private static string GetMimeType(string url)
